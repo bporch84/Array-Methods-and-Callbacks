@@ -7,7 +7,7 @@ Practice accessing data by console.log-ing the following pieces of data note, yo
 
 const final2014 = fifaData.filter((item) => (item.Year === 2014) && (item.Stage === "Final")); //this filters the fifaData array and returns an array with only information from the world cup final in 2014
   
-//   console.log(final2014)  
+  // console.log(final2014)  
   
   //(a) Home Team name for 2014 world cup final
   
@@ -43,7 +43,7 @@ function getFinals(data) {
     return final
   } //This filters the fifaData array and returns an array with only information from the finals.
 
-//   console.log(getFinals(fifaData))
+  // console.log(getFinals(fifaData))
 
   
   
@@ -58,6 +58,8 @@ function getYears(array, cb){
   return years
 } //The map method takes all of the values from the Year key in the filtered array from Task 2, and puts them into a new array.
 
+// console.log(getYears(fifaData, getFinals))
+
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -67,8 +69,8 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(array, cb) {
-    let winners = cb(array).map((element) => {
+function getWinners(array, cback) {
+    let winners = cback(array).map((element) => {
       if(element["Home Team Goals"] > element["Away Team Goals"]){
       return element["Home Team Name"]
     } else return element["Away Team Name"]
@@ -76,6 +78,8 @@ function getWinners(array, cb) {
     )
     return winners
   } // The map method goes through the array created in task two, and the if statement causes it to return the name of the team that one the match by comparing their scores.
+
+  // console.log(getWinners(fifaData, getFinals))
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -88,13 +92,13 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(array, cb, callback) {
-  let winnersByYears = cb(array).map((year, index) =>
-  `In ${year}, ${callback(array)[index]} won the world cup!`);
-  return winnersByYears
-} //I used the map method on the getYears callback and added the getWinners callback in the return, but I'm not entirely sure why this works.
+function getWinnersByYear(array, callb, callback) {
+  let winnersByYear = callb(array).map((year, index) => `In ${year}, ${callback(array)[index]} won the world cup!`);
 
+  return winnersByYear
+} //I used the map method on the getYears callback and added the getWinners callback in the return.
 
+// console.log(getWinnersByYear(fifaData, getYears, getWinners))
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -121,12 +125,12 @@ Use the higher order function getAverageGoals to do the following:
 // return average
 // }
 
-function getAverageGoals(cb) {
+function getAverageGoals(cbaverage) {
   //This returns an array for the home teams goals.
-  let homeGoals = cb.map((home) => home["Home Team Goals"]);
+  let homeGoals = cbaverage.map((home) => home["Home Team Goals"]);
 
   //This returns an array for the away team goals.
-  let awayGoals = cb.map((away) => away["Away Team Goals"]);
+  let awayGoals = cbaverage.map((away) => away["Away Team Goals"]);
 
   //This adds up all the goals for the home team
   let homeTotal = homeGoals.reduce((accumulator, currentValue) => accumulator + currentValue);
@@ -140,6 +144,8 @@ function getAverageGoals(cb) {
 
 return totalAverage
 }
+
+// console.log(getAverageGoals(getFinals(fifaData)))
 
 // function getAverageGoals(cb) {
 //   let homeAverage = cb.reduce((accumulator, currentValue) => accumulator + currentValue["Home Team Goals"], 0);
